@@ -34,7 +34,7 @@ export default class SortingVisualizer extends React.Component {
             speed: 10,
             sortAlgo: '',
         };
-
+        this.sorted = false;
         this.isRunning = false;
     }
 
@@ -53,7 +53,7 @@ export default class SortingVisualizer extends React.Component {
     }
 
     resetArray() {
-        
+        this.sorted = false;
         const array = [];
         for (let index = 0; index < this.state.len; index++) {
             array.push(randomIntFromRange(5, 730));
@@ -67,20 +67,23 @@ export default class SortingVisualizer extends React.Component {
     }
 
 
-    async callSort(){
-        console.log(this.state.sortAlgo);
+    callSort(){
+        if (this.sorted){ 
+            alert("Already Sorted");
+            return;
+        }
         switch (this.state.sortAlgo) {
             case 'merge-sort':
-                await this.MergeSort();
+                this.MergeSort();
                 break;
             case 'bubble-sort':
-                await this.BubbleSort();
+                this.BubbleSort();
                 break;
             case 'selection-sort':
-                await this.SelectionSort();
+                this.SelectionSort();
                 break;
             case 'quick-sort':
-                await this.QuickSort();
+                this.QuickSort();
                 break;
             default:
                 alert("Select an Algorithm");
@@ -108,6 +111,7 @@ export default class SortingVisualizer extends React.Component {
             arrayBars[j].style.backgroundColor = ORANGE;
             await this.delay(SORT_STATE_SPEED);
         }
+        this.sorted = true;
     }
 
     async MergeSort() {
