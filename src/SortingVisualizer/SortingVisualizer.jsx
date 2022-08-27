@@ -69,7 +69,7 @@ export default class SortingVisualizer extends React.Component {
 
     callSort(){
         if (this.sorted){ 
-            alert("Already Sorted");
+            alert("Already Sorted. Generate New Array.");
             return;
         }
         switch (this.state.sortAlgo) {
