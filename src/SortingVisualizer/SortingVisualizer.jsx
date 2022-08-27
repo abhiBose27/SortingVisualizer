@@ -11,7 +11,6 @@ const TURQUOISE = 'turquoise';
 const ORANGE = '#ff6200';
 const GREEN = '#6fff00';
 const PINK = 'pink';
-//const YELLOW = 'yellow';
 
 const DEFAULT_SIZE = 100;
 const MIN_SIZE = 10;
@@ -21,7 +20,7 @@ const DEFAULT_SPEED = 10;
 const MIN_SPEED = 5;
 const MAX_SPEED = 500;
 
-const SLIDER_MAX_SPEED = 497;
+const SLIDER_MAX_SPEED = 500;
 
 const SORT_STATE_SPEED = 10;
 
@@ -45,19 +44,18 @@ export default class SortingVisualizer extends React.Component {
 
 
     setLenofArray(value){
-        //this.state.len = value;
         this.setState({len: value});
         this.componentDidMount();
     }
 
     setSpeed(value){
-        //this.state.speed = value;
         this.setState({speed: value});
     }
 
     resetArray() {
+        this.setState({sortAlgo: ''});
+        this.setState({isRunning: false});
         const array = [];
-
         for (let index = 0; index < this.state.len; index++) {
             array.push(randomIntFromRange(5, 730));
         }
@@ -66,6 +64,7 @@ export default class SortingVisualizer extends React.Component {
         for (let arrayBar of arrayBars){
             arrayBar.style.backgroundColor = TURQUOISE;
         }
+        
     }
 
 
@@ -92,8 +91,7 @@ export default class SortingVisualizer extends React.Component {
     changeState(){
         const buttons = document.getElementsByTagName('button');
         for (let index = 0; index < buttons.length; index++) {
-            if (buttons[index].className !== 'generate-arr')
-                buttons[index].disabled = this.isRunning;
+            buttons[index].disabled = this.isRunning;
         }
         const inputs = document.getElementsByTagName('input');
         for (let index = 0; index < inputs.length; index++) {
@@ -111,6 +109,7 @@ export default class SortingVisualizer extends React.Component {
             await this.delay(SORT_STATE_SPEED);
         }
     }
+
     async MergeSort() {
         this.isRunning = true;
         this.changeState();
