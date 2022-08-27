@@ -17,12 +17,12 @@ const MIN_SIZE = 10;
 const MAX_SIZE = 500;
 
 const DEFAULT_SPEED = 10;
-const MIN_SPEED = 5;
+const MIN_SPEED = 1;
 const MAX_SPEED = 500;
 
-const SLIDER_MAX_SPEED = 500;
+//const SLIDER_MAX_SPEED = 500;
 
-const SORT_STATE_SPEED = 10;
+const SORT_STATE_SPEED = 5;
 
 export default class SortingVisualizer extends React.Component {
     constructor(props){
@@ -30,8 +30,8 @@ export default class SortingVisualizer extends React.Component {
 
         this.state = {
             array: [],
-            len: 100,
-            speed: 10,
+            len: DEFAULT_SIZE,
+            speed: DEFAULT_SPEED,
             sortAlgo: '',
         };
         this.sorted = false;
@@ -123,22 +123,26 @@ export default class SortingVisualizer extends React.Component {
         for (let i = 0; i < animations.length; i++) {
             const isColorChange = i % 3 !== 2;
             if (isColorChange){
-                const [barOneIdx, barTwoIdx] = animations[i];
-                const barOneStyle = arrayBars[barOneIdx].style;
-                const barTwoStyle = arrayBars[barTwoIdx].style;
-                const color = i % 3 === 0 ? RED : GREEN;
-                barOneStyle.backgroundColor = color;
-                barTwoStyle.backgroundColor = color;
-                await this.delay(SPEED);
+                setTimeout(() => {
+                    const [barOneIdx, barTwoIdx] = animations[i];
+                    const barOneStyle = arrayBars[barOneIdx].style;
+                    const barTwoStyle = arrayBars[barTwoIdx].style;
+                    const color = i % 3 === 0 ? RED : GREEN;
+                    barOneStyle.backgroundColor = color;
+                    barTwoStyle.backgroundColor = color;
+                }, i * SPEED);
+                
             }
             else {
-                const [barOneIdx, newHeight] = animations[i];
-                const barOneStyle = arrayBars[barOneIdx].style;
-                barOneStyle.height = `${newHeight}px`;
-                barOneStyle.backgroundColor = PINK;
+                setTimeout(() => {
+                    const [barOneIdx, newHeight] = animations[i];
+                    const barOneStyle = arrayBars[barOneIdx].style;
+                    barOneStyle.height = `${newHeight}px`;
+                    barOneStyle.backgroundColor = PINK;
+                }, i * SPEED);     
             }
         }
-        
+        await this.delay(animations.length * SPEED);
         await this.isSorted(arrayBars);
         this.isRunning = false;
         this.changeState();
@@ -198,15 +202,17 @@ export default class SortingVisualizer extends React.Component {
 
                 barOneStyle.backgroundColor = TURQUOISE;
                 barTwoStyle.backgroundColor = TURQUOISE;
+                await this.delay(SPEED);
             }
             [barOneIdx, barTwoIdx] = animations[i].swap;
             if (barOneIdx !== -1 && barTwoIdx !== -1){
-                arrayBars[barOneIdx].style.backgroundColor = GREEN;
-                arrayBars[barTwoIdx].style.backgroundColor = GREEN;
+                
 
                 const barOne = arrayBars[barOneIdx].style.height;
                 arrayBars[barOneIdx].style.height = arrayBars[barTwoIdx].style.height;
                 arrayBars[barTwoIdx].style.height = barOne;
+                arrayBars[barOneIdx].style.backgroundColor = GREEN;
+                arrayBars[barTwoIdx].style.backgroundColor = GREEN;
                 await this.delay(SPEED);
 
                 arrayBars[barOneIdx].style.backgroundColor = PINK;
@@ -229,27 +235,29 @@ export default class SortingVisualizer extends React.Component {
         const arrayBars = document.getElementsByClassName("array-bar");
     
         for (let i = 0; i < animations.length; i++) {
-          const [barOneIdx, barTwoIdx] = animations[i];
+          const [barOneIdx, barTwoIdx, isPivot] = animations[i];
           const barOneStyle = arrayBars[barOneIdx].style;
           const barTwoStyle = arrayBars[barTwoIdx].style;
 
-
-          barOneStyle.backgroundColor = RED;
-          barTwoStyle.backgroundColor = RED;
-
-          await this.delay(SPEED);
-
-          const barOne = arrayBars[barOneIdx].style.height;
-          arrayBars[barOneIdx].style.height = arrayBars[barTwoIdx].style.height;
-          arrayBars[barTwoIdx].style.height = barOne;
-
-          barOneStyle.backgroundColor = GREEN;
-          barTwoStyle.backgroundColor = GREEN;
-
-          await this.delay(SPEED);
-
-          barOneStyle.backgroundColor = PINK;
-          barTwoStyle.backgroundColor = PINK;
+          if (isPivot){
+            barOneStyle.backgroundColor = GREEN;
+            barTwoStyle.backgroundColor = GREEN;
+            await this.delay(SPEED);
+          }
+          else{
+            barOneStyle.backgroundColor = RED;
+            barTwoStyle.backgroundColor = RED;
+  
+            await this.delay(SPEED);
+  
+            const barOne = arrayBars[barOneIdx].style.height;
+            arrayBars[barOneIdx].style.height = arrayBars[barTwoIdx].style.height;
+            arrayBars[barTwoIdx].style.height = barOne;
+  
+  
+            barOneStyle.backgroundColor = PINK;
+            barTwoStyle.backgroundColor = PINK;
+          }
 
         }
         await this.isSorted(arrayBars);
@@ -270,10 +278,10 @@ export default class SortingVisualizer extends React.Component {
                         ></input>
                     </span>
                     <span id="speed" className="label">Speed
-                        <input type="range" defaultValue={MAX_SPEED - DEFAULT_SPEED} 
+                        <input type="text" className="range-bar" defaultValue={DEFAULT_SPEED} 
                         min={MIN_SPEED} 
-                        max={SLIDER_MAX_SPEED}
-                        onChange = {(e) => this.setSpeed(MAX_SPEED - e.target.value)}
+                        max={MAX_SPEED}
+                        onChange = {(e) => this.setSpeed(e.target.value)}
                         style = {{marginLeft: '10px',}}       
                         ></input>
                     </span>

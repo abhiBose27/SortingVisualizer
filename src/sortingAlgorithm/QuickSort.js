@@ -15,6 +15,7 @@ function QuickSort(animations, array, low, high){
 
 function Partition(animations, array, low, high){
     let i = low - 1;
+    animations.push([low, high, true]);
     for (let index = low; index <= high - 1; index++) {
         const element = array[index];
         if (element < array[high]){
@@ -23,13 +24,13 @@ function Partition(animations, array, low, high){
             let temp = array[i];
             array[i] = array[index];
             array[index] = temp;
-            animations.push([i, index]);
+            animations.push([index, i]);
         }
     }
 
     let temp = array[i + 1];
     array[i + 1] = array[high];
     array[high] = temp;
-    animations.push([i + 1, high]);
+    animations.push([i + 1, high, false]);
     return i + 1;
 }

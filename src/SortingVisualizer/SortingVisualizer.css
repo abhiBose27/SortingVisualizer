@@ -27,6 +27,7 @@
 .range-input{
     align-items: baseline;
     margin: 10px 40px;
+    
 }
 
 #size{
@@ -36,7 +37,7 @@
 
 #speed{
     font-size: 30px;
-    margin-left: 30px;
+    margin-left: 50px;
 }
 
 button{
@@ -56,4 +57,15 @@ button{
 
 button:focus{
     background:  #9b98986b;
+}
+
+.range-bar{
+    border: none;
+    outline: none;
+    padding: 0.4em 1em;
+    border-radius: 24px;
+    background: #e9e2e2c9;
+    color: black;
+    font-family: inherit;
+    font-size: 60%;
 }
