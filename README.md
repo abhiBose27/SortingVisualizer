@@ -1,3 +1,9 @@
+# Sorting Algorithm Visualizer
+
+This project simply allows you to vizualise how 4 of the most popular sorting algorithms ever created work.
+
+Link to Test the program: https://abhibose27.github.io/SortingVisualizer/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
