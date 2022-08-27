@@ -53,8 +53,7 @@ export default class SortingVisualizer extends React.Component {
     }
 
     resetArray() {
-        this.setState({sortAlgo: ''});
-        this.setState({isRunning: false});
+        
         const array = [];
         for (let index = 0; index < this.state.len; index++) {
             array.push(randomIntFromRange(5, 730));
@@ -64,7 +63,7 @@ export default class SortingVisualizer extends React.Component {
         for (let arrayBar of arrayBars){
             arrayBar.style.backgroundColor = TURQUOISE;
         }
-        
+        this.setState({sortAlgo: ''});
     }
 
 
