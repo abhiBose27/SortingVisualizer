@@ -68,6 +68,7 @@ export default class SortingVisualizer extends React.Component {
 
 
     async callSort(){
+        console.log(this.state.sortAlgo);
         switch (this.state.sortAlgo) {
             case 'merge-sort':
                 await this.MergeSort();
