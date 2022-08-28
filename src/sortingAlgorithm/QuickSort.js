@@ -13,6 +13,12 @@ function QuickSort(animations, array, low, high){
     }
 }
 
+const swap = (array, i, j) => {
+    let temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+}
+
 function Partition(animations, array, low, high){
     let i = low - 1;
     animations.push([low, high, true]);
@@ -20,17 +26,12 @@ function Partition(animations, array, low, high){
         const element = array[index];
         if (element < array[high]){
             i++;
-
-            let temp = array[i];
-            array[i] = array[index];
-            array[index] = temp;
+            swap(array, i, index)
             animations.push([index, i]);
         }
     }
 
-    let temp = array[i + 1];
-    array[i + 1] = array[high];
-    array[high] = temp;
+    swap(array, i + 1, high);
     animations.push([i + 1, high, false]);
     return i + 1;
 }

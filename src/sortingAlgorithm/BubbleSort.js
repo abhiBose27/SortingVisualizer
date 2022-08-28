@@ -1,3 +1,9 @@
+const swap = (array, i, j) => {
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+}
+
 export function getBubbleSortAnimations(array) {
     const animations = [];
     if (array.length <= 1){
@@ -11,15 +17,11 @@ export function getBubbleSortAnimations(array) {
             
             if (array[j] > array[j + 1]){
                 animations.push([j, j + 1]);
-                
-                const temp = array[j];
-                array[j] = array[j + 1];
-                array[j + 1] = temp;
+                swap(array, j, j + 1);     
                 swapped = true;
             }
         }
-        if (!swapped)
-            break;
+        if (!swapped) break;
     }
     return animations;
 }

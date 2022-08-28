@@ -52,17 +52,19 @@ export default class SortingVisualizer extends React.Component {
         this.setState({speed: value});
     }
 
+
     resetArray() {
         this.sorted = false;
         const array = [];
-        for (let index = 0; index < this.state.len; index++) {
-            array.push(randomIntFromRange(5, 730));
-        }
-        this.setState({array});
         const arrayBars = document.getElementsByClassName('array-bar');
-        for (let arrayBar of arrayBars){
+        for (let index = 0; index < this.state.len; index++) 
+            array.push(randomIntFromRange(5, 730));
+        
+        
+        for (let arrayBar of arrayBars)
             arrayBar.style.backgroundColor = TURQUOISE;
-        }
+        
+        this.setState({array});
         this.setState({sortAlgo: ''});
     }
 
@@ -93,12 +95,12 @@ export default class SortingVisualizer extends React.Component {
 
     changeState(){
         const buttons = document.getElementsByTagName('button');
-        for (let index = 0; index < buttons.length; index++) {
-            buttons[index].disabled = this.isRunning;
+        for (let btn of buttons) {
+            btn.disabled = this.isRunning;
         }
         const inputs = document.getElementsByTagName('input');
-        for (let index = 0; index < inputs.length; index++) {
-            inputs[index].disabled = this.isRunning;
+        for (let input of inputs) {
+            input.disabled = this.isRunning;
         }
     }
 
@@ -107,8 +109,8 @@ export default class SortingVisualizer extends React.Component {
     }
 
     async isSorted(arrayBars){
-        for (let j = 0; j < arrayBars.length; j++) {
-            arrayBars[j].style.backgroundColor = ORANGE;
+        for (let arrayBar of arrayBars) {
+            arrayBar.style.backgroundColor = ORANGE;
             await this.delay(SORT_STATE_SPEED);
         }
         this.sorted = true;
