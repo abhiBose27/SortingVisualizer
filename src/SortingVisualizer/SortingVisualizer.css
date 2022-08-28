@@ -25,19 +25,20 @@
 }
 
 .range-input{
-    align-items: baseline;
+    align-items: center;
     margin: 10px 40px;
-    
 }
 
 #size{
     font-size: 30px;
-    margin-left: 0;
+    margin-left: 50px;
+    display: inline-block;
 }
 
 #speed{
     font-size: 30px;
     margin-left: 50px;
+    display: inline-block;
 }
 
 button{
@@ -48,7 +49,7 @@ button{
     background: #7c7c7c2b;
     text-align: center;
     margin: 0 2px;
-    font-size: 40%;
+    font-size: 30%;
     color: white;
     cursor: pointer;
     transition: 0.2s ease-in-out;
@@ -68,4 +69,5 @@ button:focus{
     color: black;
     font-family: inherit;
     font-size: 60%;
+    width: 20%;
 }

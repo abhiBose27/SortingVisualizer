@@ -97,6 +97,7 @@ export default class SortingVisualizer extends React.Component {
         const buttons = document.getElementsByTagName('button');
         for (let btn of buttons) {
             btn.disabled = this.isRunning;
+            btn.style.cursor = this.isRunning ? "default" : "pointer";
         }
         const inputs = document.getElementsByTagName('input');
         for (let input of inputs) {
@@ -123,28 +124,23 @@ export default class SortingVisualizer extends React.Component {
         const animations = getMergeSortAnimations(this.state.array);
         const arrayBars = document.getElementsByClassName('array-bar');
         for (let i = 0; i < animations.length; i++) {
-            const isColorChange = i % 3 !== 2;
-            if (isColorChange){
-                setTimeout(() => {
-                    const [barOneIdx, barTwoIdx] = animations[i];
-                    const barOneStyle = arrayBars[barOneIdx].style;
-                    const barTwoStyle = arrayBars[barTwoIdx].style;
-                    const color = i % 3 === 0 ? RED : GREEN;
-                    barOneStyle.backgroundColor = color;
-                    barTwoStyle.backgroundColor = color;
-                }, i * SPEED);
-                
+            const [barOneIdx, heightOrIdx, isReplace] = animations[i];
+            if (!isReplace){
+                let barTwoIdx = heightOrIdx;
+                arrayBars[barOneIdx].style.backgroundColor = RED;
+                arrayBars[barTwoIdx].style.backgroundColor = RED;
+
+                await this.delay(SPEED);
+
+                arrayBars[barOneIdx].style.backgroundColor = TURQUOISE;
+                arrayBars[barTwoIdx].style.backgroundColor = TURQUOISE;
             }
             else {
-                setTimeout(() => {
-                    const [barOneIdx, newHeight] = animations[i];
-                    const barOneStyle = arrayBars[barOneIdx].style;
-                    barOneStyle.height = `${newHeight}px`;
-                    barOneStyle.backgroundColor = PINK;
-                }, i * SPEED);     
+                let newHeight = heightOrIdx;
+                arrayBars[barOneIdx].style.height = `${newHeight}px`;
+                arrayBars[barOneIdx].style.backgroundColor = PINK;
             }
         }
-        await this.delay(animations.length * SPEED);
         await this.isSorted(arrayBars);
         this.isRunning = false;
         this.changeState();
@@ -193,8 +189,8 @@ export default class SortingVisualizer extends React.Component {
         const arrayBars = document.getElementsByClassName('array-bar');
         for (let i = 0; i < animations.length; i++) {
             
-            var [barOneIdx, barTwoIdx] = animations[i].comparison;
-            if (barOneIdx !== -1 && barTwoIdx !== -1){
+            const [barOneIdx, barTwoIdx, isSwap] = animations[i];
+            if (!isSwap){
                 const barOneStyle = arrayBars[barOneIdx].style;
                 const barTwoStyle = arrayBars[barTwoIdx].style;
                 barOneStyle.backgroundColor = RED;
@@ -204,12 +200,8 @@ export default class SortingVisualizer extends React.Component {
 
                 barOneStyle.backgroundColor = TURQUOISE;
                 barTwoStyle.backgroundColor = TURQUOISE;
-                await this.delay(SPEED);
             }
-            [barOneIdx, barTwoIdx] = animations[i].swap;
-            if (barOneIdx !== -1 && barTwoIdx !== -1){
-                
-
+            else {
                 const barOne = arrayBars[barOneIdx].style.height;
                 arrayBars[barOneIdx].style.height = arrayBars[barTwoIdx].style.height;
                 arrayBars[barTwoIdx].style.height = barOne;
@@ -246,16 +238,15 @@ export default class SortingVisualizer extends React.Component {
             barTwoStyle.backgroundColor = GREEN;
             await this.delay(SPEED);
           }
-          else{
+          else
+          {
             barOneStyle.backgroundColor = RED;
             barTwoStyle.backgroundColor = RED;
-  
             await this.delay(SPEED);
-  
+
             const barOne = arrayBars[barOneIdx].style.height;
             arrayBars[barOneIdx].style.height = arrayBars[barTwoIdx].style.height;
             arrayBars[barTwoIdx].style.height = barOne;
-  
   
             barOneStyle.backgroundColor = PINK;
             barTwoStyle.backgroundColor = PINK;

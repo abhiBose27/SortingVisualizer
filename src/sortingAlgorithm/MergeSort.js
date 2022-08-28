@@ -23,31 +23,31 @@ function doMerge(mainArr, start_idx, mid_idx, end_idx, auxArr, animations){
     let j = mid_idx + 1;
 
     while (i <= mid_idx && j <= end_idx) {
-        animations.push([i, j]);
-        animations.push([i, j]);
+        animations.push([i, j, false]);
+        //animations.push([i, j]);
         if (auxArr[i] <= auxArr[j]) {
-            animations.push([k, auxArr[i]]);
+            animations.push([k, auxArr[i], true]);
             mainArr[k++] = auxArr[i++];
         }
         else{
-            animations.push([k, auxArr[j]]);
+            animations.push([k, auxArr[j], true]);
             mainArr[k++] = auxArr[j++];
         }
     }
 
     while (i <= mid_idx) {
-        animations.push([i, i]);
-        animations.push([i, i]);
+        animations.push([i, i, false]);
+        //animations.push([i, i]);
 
-        animations.push([k, auxArr[i]]);
+        animations.push([k, auxArr[i], true]);
         mainArr[k++] = auxArr[i++];
     }
 
     while (j <= end_idx){
-        animations.push([j, j]);
-        animations.push([j, j]);
+        animations.push([j, j, false]);
+        //animations.push([j, j]);
 
-        animations.push([k, auxArr[j]]);
+        animations.push([k, auxArr[j], true]);
         mainArr[k++] = auxArr[j++];
     }
 }
