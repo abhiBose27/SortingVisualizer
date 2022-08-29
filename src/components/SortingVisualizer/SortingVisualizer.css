@@ -1,0 +1,85 @@
+.array-container {
+    margin-top: 10%;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 600px;
+    justify-content: center;
+    transition: 2s all ease;
+}
+
+#sorting {
+    margin-bottom: 50px;
+    transform: rotate(180deg) scaleX(-1);
+}
+
+.cell {
+    margin: 0 1px;
+    display: inline-block;
+    padding-top: 20px;
+    transition: 0.1s all ease;
+    background-color: coral;
+}
+
+.cell.done {
+    background-color: #9CEC5B;
+    border-color: #9CEC5B;
+    transition: all .2s ease-out;
+}
+
+.cell.current {
+    border-color: #6184D8;
+    background-color: #f6f7fa;
+}
+
+.algorithms{
+    float: center;
+}
+
+.range-input{
+    align-content: center;
+    margin: 10px 40px;
+}
+
+#size{
+    font-size: 30px;
+    margin-left: 50px;
+    display: inline-block;
+}
+
+#speed{
+    font-size: 30px;
+    margin-left: 50px;
+    display: inline-block;
+}
+
+button{
+    border-radius: 20%;
+    border: none;
+    height: 60px;
+    width: 10%;
+    background: #7c7c7c2b;
+    text-align: center;
+    margin: 0 2px;
+    font-size: 40%;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+
+button:focus{
+    background:  #9b98986b;
+}
+
+.range-bar{
+    border: none;
+    outline: none;
+    padding: 0.4em 1em;
+    border-radius: 24px;
+    background: #e9e2e2c9;
+    color: black;
+    font-family: inherit;
+    font-size: 60%;
+    width: 20%;
+}
