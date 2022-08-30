@@ -1,10 +1,9 @@
 import React from "react";
-import { DEFAULT_COLOR } from "../helper/constants";
 
 export default class Frame extends React.Component {
     render () {
         return (
-            <div id="sorting" className="array-container">
+            <div id="frame" className="array-container">
             {this.props.list.map((elm, idx) => (
                 <div className={this.getClass(elm.classType)} 
                     key={idx} 

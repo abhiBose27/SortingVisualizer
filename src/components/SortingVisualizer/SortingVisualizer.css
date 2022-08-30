@@ -1,14 +1,19 @@
+.top-btn {
+    margin-top: 10px;
+}
+
+/*Editing of Frame Component*/
 .array-container {
     margin-top: 10%;
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
-    height: 600px;
+    height: 500px;
     justify-content: center;
     transition: 2s all ease;
 }
 
-#sorting {
+#frame {
     margin-bottom: 50px;
     transform: rotate(180deg) scaleX(-1);
 }
@@ -18,7 +23,7 @@
     display: inline-block;
     padding-top: 20px;
     transition: 0.1s all ease;
-    background-color: coral;
+    background-color: rgb(238, 234, 232);
 }
 
 .cell.done {
@@ -29,13 +34,13 @@
 
 .cell.current {
     border-color: #6184D8;
-    background-color: #f6f7fa;
+    background-color: #f80808;
 }
 
-.algorithms{
-    float: center;
-}
 
+/*---------------------------------------------*/
+
+/* This is where Slider Component is edited*/
 .range-input{
     align-content: center;
     margin: 10px 40px;
@@ -53,25 +58,6 @@
     display: inline-block;
 }
 
-button{
-    border-radius: 20%;
-    border: none;
-    height: 60px;
-    width: 10%;
-    background: #7c7c7c2b;
-    text-align: center;
-    margin: 0 2px;
-    font-size: 40%;
-    color: white;
-    cursor: pointer;
-    transition: 0.2s ease-in-out;
-}
-
-
-button:focus{
-    background:  #9b98986b;
-}
-
 .range-bar{
     border: none;
     outline: none;
@@ -83,3 +69,31 @@ button:focus{
     font-size: 60%;
     width: 20%;
 }
+
+/*------------------------------------------------*/
+
+/* This is where Buttons are edited */
+.algorithms{
+    float: center;
+}
+
+button{
+    border-radius: 20%;
+    border: none;
+    height: 60px;
+    width: 10%;
+    background: #7c7c7c2b;
+    text-align: center;
+    margin: 0 4px;
+    font-size: 40%;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+
+button:focus{
+    background:  #9b98986b;
+}
+
+

@@ -9,13 +9,13 @@ export function getSelectionSortAnimations(array){
             
             if (array[j] < array[lowest]){
                 lowest = j;
-                // Boolean is to check if there is a swap or not
+                // SWAP is to check if there is a swap or not
             }    
             animations.push([i, lowest, !SWAP]);
         }
         if (i !== lowest){
             swap(array, i, lowest);
-            // Boolean is to check if there is a swap or not
+            // SWAP is to check if there is a swap or not
             animations.push([i, lowest, SWAP]);  
         } 
     }
