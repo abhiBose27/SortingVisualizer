@@ -2,7 +2,6 @@
 
 This project simply allows you to vizualise how 8 of the most popular/non-popular sorting algorithms ever created work.
 
-Link to Test the program: https://abhibose27.github.io/sorting-VisualizerReact
 
 ## Merge Sort
 #### Worst Complexity: n * log(n)
