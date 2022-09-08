@@ -1,6 +1,7 @@
 # Sorting Algorithm Visualizer
 
 This project simply allows you to vizualise how 8 of the most popular/non-popular sorting algorithms ever created work.
+It is currently hosted on github pages. The link is provided in the description.
 
 
 ## Merge Sort
