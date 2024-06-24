@@ -1,41 +1,35 @@
-import { SWAP } from "../helper/constants";
+import { COMPARE, SWAP } from "../helper/constants";
 import { swap } from "../helper/swap";
 
-export function getQuickSortAnimations(array){
-    let animations = []
-    QuickSort(animations, array, 0, array.length - 1);
-    return animations;
+
+export const getQuickSortAnimations = (list) => {
+    const animations = []
+    quickSort(animations, list, 0, list.length - 1)
+    return animations
 }
 
-function QuickSort(animations, array, low, high){
-    if (low >= high)
-        return;
-    let pi = Partition(animations, array, low, high);
-    QuickSort(animations, array, low, pi);
-    QuickSort(animations, array, pi + 1, high);
+const quickSort = (animations, list, start_idx, end_idx) => {
+    if (start_idx >= end_idx) return
+    let pivot_idx = partition(animations, list, start_idx, end_idx)
+    quickSort(animations, list, start_idx, pivot_idx - 1)
+    quickSort(animations, list, pivot_idx + 1, end_idx)
 }
 
+const partition = (animations, list, start_idx, end_idx) => {
+    let pivot = list[end_idx]
+    let i = start_idx
 
-function Partition(animations, array, low, high){
-    let pivot = array[low];
-    let i = low - 1;
-    let j = high + 1;
-
-    while (true){
-        i++;
-        while (array[i] < pivot) {
-            animations.push([i, low, !SWAP]);
-            i++;
+    for (let j = start_idx; j < end_idx; j++) {
+        animations.push([i, j, COMPARE])
+        if (list[j] <= pivot) {
+            swap(list, i, j)
+            animations.push([i, j, SWAP])
+            i++
+            continue
         }
-
-        j--;
-        while (array[j] > pivot){
-            animations.push([j, low, !SWAP]);
-            j--;
-        }
-        if (i >= j)
-            return j;
-        swap(array, i, j);
-        animations.push([i, j, SWAP]);
     }
+
+    swap(list, i, end_idx)
+    animations.push([i, end_idx, SWAP])
+    return i
 }

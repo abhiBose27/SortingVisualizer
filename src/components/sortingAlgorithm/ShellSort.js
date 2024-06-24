@@ -1,28 +1,24 @@
-import { SWAP } from "../helper/constants";
+import { COMPARE, SWAP } from "../helper/constants";
 import { swap } from "../helper/swap";
 
 
-export function getShellSortAnimations(array){
-    let n = array.length;
-    let animations = []
-    shellSort(animations, array, n);
-    return animations;
+export const getShellSortAnimations = (list) => {
+    return shellSort(list)
 }
 
-function shellSort(animations, array, n){
-    for (let gap = Math.floor(n/2); gap > 0; gap = Math.floor(gap/2)){
-        for (let j = gap; j < n; j++){
-            for (let i = j - gap; i >= 0; i -= gap){
-                if (array[i + gap] > array[i]){
-                    animations.push([i + gap, i, !SWAP]);
-                    break;
-                }
-                else {
-                    animations.push([i + gap, i, SWAP]);
-                    swap(array, i + gap, i);
-                }
+const shellSort = (list) => {
+    const animations = []
+    const n = list.length
+    for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
+        for (let j = gap; j < n; j++) {
+            for (let i = j - gap; i >= 0; i -= gap) {
+                animations.push([i + gap, i, COMPARE])
+                if (list[i] <= list[i + gap])
+                    break
+                swap(list, i + gap, i)
+                animations.push([i + gap, i, SWAP])
             }
-
         }
     }
+    return animations
 }

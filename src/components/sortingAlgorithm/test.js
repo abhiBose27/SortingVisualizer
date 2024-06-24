@@ -3,7 +3,7 @@ import { getQuickSortAnimations } from "./QuickSort";
 import { getMergeSortAnimations } from "./MergeSort";
 import { getSelectionSortAnimations } from "./SelectionSort";
 import { getBubbleSortAnimations } from "./BubbleSort";
-import generateList from "../helper/generateList";
+import { generateList } from "../helper/generateList";
 import { getKeys } from "../helper/getKeys";
 import { getHeapSortAnimations } from "./HeapSort";
 import { getCocktailSortAnimations } from "./CocktailShakerSort";
@@ -14,6 +14,12 @@ export const arrAreEqual = (arr1, arr2) => {
     return arr1.length === arr2.length && arr1.every((v, i) => v === arr2[i]);
 }
 
+export const isSorted = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > arr[i + 1]) return false
+    }
+    return true
+}
 
 function twoSetsOfarrays(){
     let size = 100;

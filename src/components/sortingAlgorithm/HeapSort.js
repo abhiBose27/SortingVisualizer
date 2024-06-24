@@ -1,56 +1,47 @@
-import { SWAP } from "../helper/constants";
+import { COMPARE, SWAP } from "../helper/constants";
 import { swap } from "../helper/swap";
-
 
 /*
 Heapsort is a comparison-based sorting algorithm that uses a binary heap data structure. 
 Like mergesort, heapsort has a running time of O(n\log n),O(nlogn), and like insertion sort, 
 heapsort sorts in-place, so no extra space is needed during the sort. 
 */
-export function getHeapSortAnimations(array){
-    let animations = [];
-    let N = array.length - 1;
 
-    // Build max heap
-    buildMaxHeap(animations, array, N);
-
-    for (let i = N; i >= 1; i--){
-        swap(array, 0, i);
-        // Push if there is a SWAP
-        animations.push([0, i, SWAP]);
-        heapify(animations, array, i - 1, 0);
-    }
-    return animations;
+export const getHeapSortAnimations = (list) => {
+    const animations = []
+    heapsort(animations, list)
+    return animations
 }
 
-function buildMaxHeap(animations, array, N){
-    for (let index = Math.floor(N / 2); index >= 0; index--) {
-        heapify(animations, array, N, index);
+const heapsort = (animations, list) => {
+    const N = list.length
+    for (let i = Math.floor(N / 2); i > -1; i--) 
+        heapify(animations, list, N, i)
+
+    for (let i = N - 1; i > 0; i--) {
+        swap(list, 0, i)
+        animations.push([0, i, SWAP])
+        heapify(animations, list, i, 0)
     }
 }
 
-function heapify(animations, array, end_idx, current_idx){
-    let childOneidx = current_idx * 2 + 1;
+const heapify = (animations, list, N, i) => {
+    let largest = i
+    let left    = 2 * i + 1
+    let right   = 2 * i + 2
 
-    while (childOneidx <= end_idx) {
-        // No SWAP, so push with a !SWAP.
-        animations.push([childOneidx, end_idx, !SWAP]);
-        let childTwoIdx = current_idx * 2 + 2 <= end_idx ? current_idx * 2 + 2: -1;
-        let indexToSwap;
-        if (childTwoIdx !== -1 && array[childTwoIdx] > array[childOneidx]){
-            indexToSwap = childTwoIdx;
-        }
-        else {
-            indexToSwap = childOneidx;
-        }
+    if (left < N && list[largest] < list[left]) {
+        animations.push([largest, left, COMPARE])
+        largest = left
+    }
+    if (right < N && list[largest] < list[right]) {
+        animations.push([largest, right, COMPARE])
+        largest = right
+    }
 
-        if (array[indexToSwap] > array[current_idx]){
-            // Same logic as before.
-            animations.push([current_idx, indexToSwap, SWAP]);
-            swap(array, current_idx, indexToSwap);
-            current_idx = indexToSwap;
-            childOneidx = current_idx * 2 + 1;
-        }
-        else return;
+    if (largest !== i) {
+        swap(list, largest, i)
+        animations.push([largest, i, SWAP])
+        heapify(animations, list, N, largest)
     }
 }

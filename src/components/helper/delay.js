@@ -1,10 +1,8 @@
 // Delay function called after every animation
-const delay = async(speed) => {
+export const delay = async(speed) => {
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve();
-        }, speed);
-    });
+            resolve()
+        }, speed)
+    })
 }
-
-export default delay;

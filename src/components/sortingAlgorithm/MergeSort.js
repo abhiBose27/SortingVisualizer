@@ -1,46 +1,39 @@
-import { CHANGE_VALUE } from "../helper/constants";
+import { CHANGE_VALUE, COMPARE } from "../helper/constants";
 
-export function getMergeSortAnimations(array) {
-    const animations = [];
-    divide(array, animations, 0, array.length - 1);
-    return animations;
+
+export const getMergeSortAnimations = (list) => {
+    const animations = []
+    divide(list, animations, 0, list.length - 1)
+    return animations
 }
 
-function divide(array, animations, start_idx, end_idx) {
-    if (start_idx < end_idx){
-        const mid_idx = Math.floor((start_idx + end_idx) / 2);
-        divide(array, animations, start_idx, mid_idx);
-        divide(array, animations, mid_idx + 1, end_idx);
-        if (array[mid_idx] > array[mid_idx + 1])
-            merge(array, animations, start_idx, mid_idx, end_idx);
-    }
+const divide = (list, animations, start_idx, end_idx) => {
+    if (start_idx >= end_idx)
+        return
+    const mid_idx = Math.floor((start_idx + end_idx) / 2)
+    divide(list, animations, start_idx, mid_idx)
+    divide(list, animations, mid_idx + 1, end_idx)
+    if (list[mid_idx] > list[mid_idx + 1])
+        merge(list, animations, start_idx, mid_idx, end_idx)
 }
 
-function merge(array, animations, start_idx, mid_idx, end_idx){
-    let sortedArray = [];
-    let i = start_idx, j = mid_idx + 1;
+const merge = (list, animations, start_idx, mid_idx, end_idx) => {
+    const sortedList = []
+    let i = start_idx, j = mid_idx + 1
     while (i <= mid_idx && j <= end_idx) {
-        if (array[i] <= array[j]){
-            sortedArray.push(array[i++]);
-        }
-        else {
-            sortedArray.push(array[j++]);
-        }
+        animations.push([i, j, COMPARE])
+        if (list[i] <= list[j])
+            sortedList.push(list[i++])
+        else
+            sortedList.push(list[j++])
     }
-    while (i <= mid_idx){
-        sortedArray.push(array[i++]);
-    }
-    while (j <= end_idx){
-        sortedArray.push(array[j++]);
-    }
+    while (i <= mid_idx)
+        sortedList.push(list[i++])
+    while (j <= end_idx)
+        sortedList.push(list[j++])
 
-    let indices = [];
-    for (let i = start_idx; i <= end_idx; i++) {
-        indices.push(i);
-    }
-    for (let i = start_idx; i <= end_idx; i++){
-        array[i] = sortedArray[i - start_idx];
-        animations.push([i, array[i], CHANGE_VALUE, indices]);
+    for (let idx = start_idx; idx <= end_idx; idx++){
+        list[idx] = sortedList[idx - start_idx]
+        animations.push([idx, list[idx], CHANGE_VALUE])
     }
 }
-

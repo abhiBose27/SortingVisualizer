@@ -4,7 +4,7 @@
 
 /*Editing of Frame Component*/
 .array-container {
-    margin-top: 10%;
+    margin-top: 6%;
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
@@ -22,7 +22,7 @@
     margin: 0 1px;
     display: inline-block;
     padding-top: 20px;
-    transition: 0.1s all ease;
+    transition: 0.02s all ease;
     background-color: rgb(238, 234, 232);
 }
 
@@ -37,13 +37,18 @@
     background-color: #f80808;
 }
 
+.cell.update {
+    border-color:  #f80808;
+    background-color: #6184D8;
+}
 
 /*---------------------------------------------*/
 
 /* This is where Slider Component is edited*/
 .range-input{
     align-content: center;
-    margin: 10px 40px;
+    margin: 10px 0;
+    margin-top: 15px;
 }
 
 #size{
@@ -75,6 +80,7 @@
 /* This is where Buttons are edited */
 .algorithms{
     float: center;
+    margin-top: 35px;
 }
 
 button{

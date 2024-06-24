@@ -1,5 +1,5 @@
-export const swap = (array, index1, index2) => {
-    let cache = array[index1];
-    array[index1] = array[index2];
-    array[index2] = cache;
-};
+export const swap = (list, index1, index2) => {
+    const cache  = list[index1]
+    list[index1] = list[index2]
+    list[index2] = cache
+}
